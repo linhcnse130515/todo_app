@@ -28,7 +28,7 @@ class _TodoCardState extends State<TodoCard> {
       height: 60.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: Colors.white,
+          color: widget.todo.isCompleted == true ? Colors.green : Colors.white,
           boxShadow: [
             BoxShadow(
                 color: Color.fromRGBO(210, 211, 215, 1.0),
