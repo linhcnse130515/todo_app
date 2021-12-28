@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:manabie_todo_app/providers/app_data.dart';
 import 'package:manabie_todo_app/repositories/todos_repository.dart';
-import 'package:manabie_todo_app/routes/routes_master.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manabie_todo_app/screens/home_screen.dart';
 import 'Utils/my_theme.dart';
 
 void main() async {
@@ -16,13 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppData(),
+    return ProviderScope(
       child: MaterialApp(
         title: 'Todo App',
         theme: MyTheme().buildTheme(),
-        initialRoute: 'home',
-        routes: routes,
+        home: HomeScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
