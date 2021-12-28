@@ -3,13 +3,9 @@ import 'package:manabie_todo_app/models/todo.dart';
 import 'package:manabie_todo_app/providers/todos_repository_provider.dart';
 import 'package:manabie_todo_app/providers/todos_state_notifier_provider.dart';
 import 'package:manabie_todo_app/repositories/i_todos_repository.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MockCallbackFunction extends Mock {
-  call();
-}
 void main() {
   group("Provider test todo", (){
     test("default is empty", () {
