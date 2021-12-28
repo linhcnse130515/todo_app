@@ -1,20 +1,19 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manabie_todo_app/models/todo.dart';
+import 'package:manabie_todo_app/providers/app_data.dart';
 import 'package:provider/provider.dart';
-
 
 class TodoCard extends StatefulWidget {
   final Todo todo;
 
   const TodoCard({Key key, this.todo}) : super(key: key);
+
   @override
   _TodoCardState createState() => _TodoCardState();
 }
 
 class _TodoCardState extends State<TodoCard> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -50,8 +49,33 @@ class _TodoCardState extends State<TodoCard> {
                   fontSize: 20.0),
             ),
           ),
+          widget.todo.isCompleted != true
+              ? _buttonAccept(context)
+              : Container(),
           _buttonRemove(context),
         ],
+      ),
+    );
+  }
+
+  Widget _buttonAccept(
+    BuildContext context,
+  ) {
+    return Container(
+      width: 70.0,
+      height: 40.0,
+      // ignore: deprecated_member_use
+      child: RaisedButton(
+        onPressed: () async {
+          Provider.of<AppData>(context, listen: false).updateTodo(widget.todo.id, isCompleted: true);
+        },
+        shape: CircleBorder(side: BorderSide.none),
+        color: Colors.white70,
+        child: Icon(
+          Icons.done,
+          color: Colors.green,
+          size: 25.0,
+        ),
       ),
     );
   }
@@ -65,6 +89,7 @@ class _TodoCardState extends State<TodoCard> {
       // ignore: deprecated_member_use
       child: RaisedButton(
         onPressed: () async {
+          Provider.of<AppData>(context, listen: false).deleteTodo(widget.todo.id);
         },
         shape: CircleBorder(side: BorderSide.none),
         color: Colors.white70,

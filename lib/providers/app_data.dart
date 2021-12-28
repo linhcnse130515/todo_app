@@ -17,6 +17,11 @@ class AppData extends ChangeNotifier {
   }
 
   void createTodo(String title) {
+    int todoIndex = all.indexWhere((element) => element.id == autoId);
+    while (todoIndex != -1) {
+      ++autoId;
+      todoIndex = all.indexWhere((element) => element.id == autoId);
+    }
     final todo = Todo(++autoId, title);
     all.add(todo);
     todoRepository.insertTodo(todo);
@@ -32,15 +37,16 @@ class AppData extends ChangeNotifier {
     }
 
     todoRepository.deleteTodo(id);
+    notifyListeners();
   }
 
-  void updateTodo(int id, {String title, bool isCompleted}) {
+  void updateTodo(int id, {bool isCompleted}) {
     int todoIndex = all.indexWhere((element) => element.id == id);
 
     Todo todo = all.elementAt(todoIndex);
-    todo.setTitle(title);
     todo.setStatus(isCompleted);
 
     todoRepository.updateTodo(todo);
+    notifyListeners();
   }
 }

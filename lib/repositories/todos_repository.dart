@@ -33,7 +33,7 @@ class TodoRepository implements ITodoRepository {
     final List<Map<String, dynamic>> maps = await _database.query(tableName);
     return List.generate(maps.length, (i) {
       return Todo(maps[i]['todoId'], maps[i]['title'],
-          isCompleted: (maps[i]['isCompleted'] == 0) ? true : false);
+          isCompleted: (maps[i]['isCompleted'] == 1) ? true : false);
     });
   }
 

@@ -28,10 +28,13 @@ class _TabsScreenState extends State<TabsScreen> {
   void initState() {
     // TODO: implement initState
     Provider.of<AppData>(context, listen: false).setRepos(TodoRepository());
-    Provider.of<AppData>(context, listen: false).getTodos();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _fetchData());
     super.initState();
   }
 
+  void _fetchData() {
+    Provider.of<AppData>(context, listen: false).getTodos();
+  }
   void _addTodo(String title) {
     Provider.of<AppData>(context, listen: false).createTodo(title);
     _titleController.clear();
@@ -84,15 +87,16 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget todoList() {
     return Consumer<AppData>(
       builder: (context, model, child) {
+        todos = [];
         switch (_selectedItemIndex) {
           case 0:
             todos = model.all;
             break;
           case 1:
-            todos = model.all.where((element) => element.isCompleted == false).toList();
+            todos = model.all.where((element) => element.isCompleted == true).toList();
             break;
           case 2:
-            todos = model.all.where((element) => element.isCompleted == true).toList();
+            todos = model.all.where((element) => element.isCompleted == false).toList();
             break;
           default:
         }
