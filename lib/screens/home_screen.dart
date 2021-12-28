@@ -5,14 +5,14 @@ import 'package:manabie_todo_app/repositories/todos_repository.dart';
 import 'package:manabie_todo_app/widgets/TodoCard.dart';
 import 'package:provider/provider.dart';
 
-class TabsScreen extends StatefulWidget {
-  TabsScreen({Key key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key}) : super(key: key);
 
   @override
-  _TabsScreenState createState() => _TabsScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _HomeScreenState extends State<HomeScreen> {
 
   int _selectedItemIndex = 0;
   TextEditingController _titleController = TextEditingController();

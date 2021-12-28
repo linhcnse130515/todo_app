@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Todo App',
         theme: MyTheme().buildTheme(),
-        initialRoute: 'tabs',
+        initialRoute: 'home',
         routes: routes,
         debugShowCheckedModeBanner: false,
       ),
