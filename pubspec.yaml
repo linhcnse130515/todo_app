@@ -40,6 +40,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #   sdk: flutter
+  flutter_driver:
+    sdk: flutter
   flutter_riverpod: ^0.13.1
   sqflite: ^2.0.0+3
   path:

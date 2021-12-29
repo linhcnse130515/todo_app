@@ -52,9 +52,7 @@ void main() {
       await tester.pumpAndSettle();
 
       //Tap delete button
-      await tester.fling(find.byKey(Key("slide1")), Offset(-100.0, 0.0), 200);
-      // await tester.drag(find.byKey(Key("slide1")), Offset(-500.0, 0.0));
-      await tester.tap(find.byKey(Key("deleteButton1")));
+      await tester.tap(find.byKey(Key("removeButton1")));
       await tester.pumpAndSettle();
 
       expect(find.byType(ListView), findsOneWidget);
@@ -62,7 +60,7 @@ void main() {
       expect(find.text(expectedTitle), findsNothing);
     });
 
-    testWidgets("filter completed todos", (WidgetTester tester) async {
+    testWidgets("filter complete todos", (WidgetTester tester) async {
       await _pumpTestWidget(tester);
       //Add first todo
 
@@ -74,38 +72,44 @@ void main() {
       await tester.tap(find.byKey(Key("addButton")));
 
       //Click check button 1
-      await tester.tap(find.byKey(Key("checkButton1")));
+      await tester.tap(find.byKey(Key("acceptButton1")));
       await tester.pump();
 
       //Click Completed Button on Bottom Bar
-      await tester.tap(find.byKey(Key("completedButton")));
+      await tester.tap(find.byKey(Key("completeButton")));
       await tester.pump();
 
       expect(find.byKey(Key("text2")), findsNothing);
       expect(find.byKey(Key("text1")), findsOneWidget);
     });
 
-    testWidgets("filter incompleted todos", (WidgetTester tester) async {
+    testWidgets("filter incomplete todos", (WidgetTester tester) async {
       await _pumpTestWidget(tester);
       //Add first todo
-
       await tester.enterText(find.byKey(ValueKey("title")), "completed title");
       await tester.tap(find.byKey(Key("addButton")));
+
       //Add second todo
       await tester.enterText(
           find.byKey(ValueKey("title")), "incompleted title");
       await tester.tap(find.byKey(Key("addButton")));
 
+      //Add third todo
+      await tester.enterText(
+          find.byKey(ValueKey("title")), "incompleted title");
+      await tester.tap(find.byKey(Key("addButton")));
+
       //Click check button 1
-      await tester.tap(find.byKey(Key("checkButton1")));
+      await tester.tap(find.byKey(Key("acceptButton1")));
       await tester.pump();
 
-      //Click Completed Button on Bottom Bar
-      await tester.tap(find.byKey(Key("incompletedButton")));
+      //Click Incomplete Button on Bottom Bar
+      await tester.tap(find.byKey(Key("incompleteButton")));
       await tester.pump();
 
       expect(find.byKey(Key("text1")), findsNothing);
       expect(find.byKey(Key("text2")), findsOneWidget);
+      expect(find.byKey(Key("text3")), findsOneWidget);
     });
 
     testWidgets("filter all todos", (WidgetTester tester) async {
@@ -114,21 +118,30 @@ void main() {
 
       await tester.enterText(find.byKey(ValueKey("title")), "completed title");
       await tester.tap(find.byKey(Key("addButton")));
+
       //Add second todo
-      await tester.enterText(
-          find.byKey(ValueKey("title")), "incompleted title");
+      await tester.enterText(find.byKey(ValueKey("title")), "incompleted title");
+      await tester.tap(find.byKey(Key("addButton")));
+
+      //Add third todo
+      await tester.enterText(find.byKey(ValueKey("title")), "completed title");
       await tester.tap(find.byKey(Key("addButton")));
 
       //Click check button 1
-      await tester.tap(find.byKey(Key("checkButton1")));
+      await tester.tap(find.byKey(Key("acceptButton1")));
+      await tester.pump();
+
+      //Click check button 3
+      await tester.tap(find.byKey(Key("acceptButton3")));
       await tester.pump();
 
       //Click Completed Button on Bottom Bar
-      await tester.tap(find.byKey(Key("incompletedButton")));
+      await tester.tap(find.byKey(Key("completeButton")));
       await tester.pump();
 
-      expect(find.byKey(Key("text1")), findsNothing);
-      expect(find.byKey(Key("text2")), findsOneWidget);
+      expect(find.byKey(Key("text1")), findsOneWidget);
+      expect(find.byKey(Key("text2")), findsNothing);
+      expect(find.byKey(Key("text3")), findsOneWidget);
 
       //Back to All screen
       await tester.tap(find.byKey(Key("allButton")));
@@ -136,6 +149,7 @@ void main() {
 
       expect(find.byKey(Key("text1")), findsOneWidget);
       expect(find.byKey(Key("text2")), findsOneWidget);
+      expect(find.byKey(Key("text3")), findsOneWidget);
     });
 
     group("Todo ", () {
@@ -151,16 +165,15 @@ void main() {
         await tester.tap(find.byKey(Key("addButton")));
 
         //Click check button 1
-        await tester.tap(find.byKey(Key("checkButton1")));
+        await tester.tap(find.byKey(Key("acceptButton1")));
         await tester.pumpAndSettle();
 
-        final text = tester.widget<Text>(find.byKey(Key("text1")));
+        final text = tester.widget<Container>(find.byKey(Key("todoCard1")));
         expect(find.byKey(Key("text1")), findsOneWidget);
-        debugPrint(text.style.color.toString());
 
-        expect(text.style.color, Colors.grey);
+        expect(text.color, Colors.green);
 
-        expect(find.byKey(Key("checkButton1")), findsNothing);
+        expect(find.byKey(Key("acceptButton1")), findsNothing);
       });
     });
   });

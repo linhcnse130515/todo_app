@@ -32,6 +32,41 @@ void main() {
       expect(container.read(todosStateNotifierProvider.state).first.getTitle,
           title);
     });
+
+    test("update todo", () {
+      final container = ProviderContainer(
+        overrides: [
+          todosRepositoryProvider
+              .overrideWithProvider(Provider((ref) => MockTodosRepository()))
+        ],
+      );
+
+      String title = "title";
+      container.read(todosStateNotifierProvider).createTodo(title);
+      container.read(todosStateNotifierProvider).updateTodo(container.read(todosStateNotifierProvider.state)[0].getId, isCompleted: true);
+
+      expect(container.read(todosStateNotifierProvider.state).length, 1);
+      expect(container.read(todosStateNotifierProvider.state).first.getTitle,
+          title);
+      expect(container.read(todosStateNotifierProvider.state).first.isCompleted,
+          true);
+    });
+
+    test("delete todo", () {
+      final container = ProviderContainer(
+        overrides: [
+          todosRepositoryProvider
+              .overrideWithProvider(Provider((ref) => MockTodosRepository()))
+        ],
+      );
+
+      String title = "title";
+      container.read(todosStateNotifierProvider).createTodo(title);
+      container.read(todosStateNotifierProvider).deleteTodo(container.read(todosStateNotifierProvider.state)[0].getId);
+
+      expect(container.read(todosStateNotifierProvider.state).length, 0);
+
+    });
   });
 }
 

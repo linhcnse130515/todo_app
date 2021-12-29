@@ -28,32 +28,36 @@ class _TodoCardState extends State<TodoCard> {
       height: 60.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: widget.todo.isCompleted == true ? Colors.green : Colors.white,
           boxShadow: [
             BoxShadow(
                 color: Color.fromRGBO(210, 211, 215, 1.0),
                 offset: Offset(0, 5),
                 blurRadius: 10.0)
           ]),
-      child: Row(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 5.0),
-            width: 200,
-            alignment: Alignment.center,
-            child: Text(
-              widget.todo.title,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0),
+      child: Container(
+        color: widget.todo.isCompleted == true ? Colors.green : Colors.white,
+        key: Key("todoCard" + "${widget.todo.id}"),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0),
+              width: 200,
+              alignment: Alignment.center,
+              child: Text(
+                widget.todo.title,
+                key: Key("text" + "${widget.todo.id}"),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0),
+              ),
             ),
-          ),
-          widget.todo.isCompleted != true
-              ? _buttonAccept(context)
-              : Container(),
-          _buttonRemove(context),
-        ],
+            widget.todo.isCompleted != true
+                ? _buttonAccept(context)
+                : Container(),
+            _buttonRemove(context),
+          ],
+        ),
       ),
     );
   }

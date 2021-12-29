@@ -62,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
           break;
         case 1:
           list = watch(todosStateNotifierProvider.state)
-              .where((todo) => (todo.getIsCompleted == false))
+              .where((todo) => (todo.getIsCompleted == true))
               .toList();
           break;
         case 2:
           list = watch(todosStateNotifierProvider.state)
-              .where((todo) => (todo.getIsCompleted == true))
+              .where((todo) => (todo.getIsCompleted == false))
               .toList();
           break;
         default:
@@ -107,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
               itemBuilder: (context, index) {
                 final value = list[index];
-                return TodoCard(todo: value,);
+                return TodoCard(
+                  todo: value,
+                );
               },
               itemCount: list.length,
             )),
@@ -117,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
   }
+
   Widget _bottomNavigatorBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -129,11 +132,19 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.all_inbox), label: 'All'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.done_all), label: 'Complete'),
+                icon: Icon(
+                  Icons.all_inbox,
+                  key: Key('allButton'),
+                ),
+                label: 'All'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.clear_all_outlined), label: 'Incomplete'),
+                icon: Icon(Icons.done_all, key: Key('completeButton')),
+                label: 'Complete'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.clear_all_outlined,
+                    key: Key('incompleteButton')),
+                label: 'Incomplete'),
           ]),
     );
   }
