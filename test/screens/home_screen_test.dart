@@ -33,8 +33,8 @@ void main() {
 
       expect(find.byType(ListView), findsOneWidget);
       expect(tester.widgetList(find.byType(TodoCard)), [
-        isA<TodoCard>()
-            .having((s) => s.todo.title, "check first element value", expectedTitle)
+        isA<TodoCard>().having(
+            (s) => s.todo.title, "check first element value", expectedTitle)
       ]);
       expect(find.byType(TodoCard), findsOneWidget);
       expect(find.text(expectedTitle), findsOneWidget);
@@ -120,7 +120,8 @@ void main() {
       await tester.tap(find.byKey(Key("addButton")));
 
       //Add second todo
-      await tester.enterText(find.byKey(ValueKey("title")), "incompleted title");
+      await tester.enterText(
+          find.byKey(ValueKey("title")), "incompleted title");
       await tester.tap(find.byKey(Key("addButton")));
 
       //Add third todo

@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  group("Provider test todo", (){
+  group("Provider test todo", () {
     test("default is empty", () {
       final container = ProviderContainer();
       final value = container.read(todosStateNotifierProvider.state);
@@ -43,7 +43,9 @@ void main() {
 
       String title = "title";
       container.read(todosStateNotifierProvider).createTodo(title);
-      container.read(todosStateNotifierProvider).updateTodo(container.read(todosStateNotifierProvider.state)[0].getId, isCompleted: true);
+      container.read(todosStateNotifierProvider).updateTodo(
+          container.read(todosStateNotifierProvider.state)[0].getId,
+          isCompleted: true);
 
       expect(container.read(todosStateNotifierProvider.state).length, 1);
       expect(container.read(todosStateNotifierProvider.state).first.getTitle,
@@ -62,10 +64,10 @@ void main() {
 
       String title = "title";
       container.read(todosStateNotifierProvider).createTodo(title);
-      container.read(todosStateNotifierProvider).deleteTodo(container.read(todosStateNotifierProvider.state)[0].getId);
+      container.read(todosStateNotifierProvider).deleteTodo(
+          container.read(todosStateNotifierProvider.state)[0].getId);
 
       expect(container.read(todosStateNotifierProvider.state).length, 0);
-
     });
   });
 }

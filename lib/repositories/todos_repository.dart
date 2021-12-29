@@ -10,6 +10,7 @@ class TodoRepository implements ITodoRepository {
   static final TodoRepository _instance = TodoRepository._();
 
   Database _database;
+
   factory TodoRepository() {
     return _instance;
   }

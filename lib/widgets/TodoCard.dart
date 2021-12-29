@@ -26,14 +26,13 @@ class _TodoCardState extends State<TodoCard> {
       padding: EdgeInsets.only(left: 10.0),
       margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
       height: 60.0,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(
-                color: Color.fromRGBO(210, 211, 215, 1.0),
-                offset: Offset(0, 5),
-                blurRadius: 10.0)
-          ]),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(20.0), boxShadow: [
+        BoxShadow(
+            color: Color.fromRGBO(210, 211, 215, 1.0),
+            offset: Offset(0, 5),
+            blurRadius: 10.0)
+      ]),
       child: Container(
         color: widget.todo.isCompleted == true ? Colors.green : Colors.white,
         key: Key("todoCard" + "${widget.todo.id}"),
@@ -72,7 +71,9 @@ class _TodoCardState extends State<TodoCard> {
       child: RaisedButton(
         key: Key("acceptButton" + "${widget.todo.id}"),
         onPressed: () async {
-          context.read(todosStateNotifierProvider).updateTodo(widget.todo.id, isCompleted: true);
+          context
+              .read(todosStateNotifierProvider)
+              .updateTodo(widget.todo.id, isCompleted: true);
         },
         shape: CircleBorder(side: BorderSide.none),
         color: Colors.white70,

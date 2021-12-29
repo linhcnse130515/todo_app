@@ -8,6 +8,7 @@ class TodosStateNotifier extends StateNotifier<List<Todo>> {
 
   TodosStateNotifier(this.todosRepository) : super([]);
   int autoIncrementId = 0;
+
   void createTodo(String title) {
     /*int todoIndex = state.indexWhere((element) => element.id == autoIncrementId);
     while (todoIndex != -1) {
